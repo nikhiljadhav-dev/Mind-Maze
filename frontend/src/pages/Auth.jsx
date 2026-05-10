@@ -191,10 +191,10 @@ export default function Auth() {
         transition={{ duration: 0.5, type: 'spring', damping: 20 }}>
 
         <LogoMark initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.15, type: 'spring' }}>
-          LL
+          MM
         </LogoMark>
 
-        <Title>Welcome to Logic Looper</Title>
+        <Title>Welcome to Mind Maze</Title>
         <p className="text-center text-sm text-text-muted mb-6">
           Sign in to save your streaks and compete on the leaderboard.
         </p>
