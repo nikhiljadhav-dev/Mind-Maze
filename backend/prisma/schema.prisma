@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String       @id @default(uuid()) @db.Uuid
+  email        String       @unique
+  name         String?
+  avatar       String?
+  streakCount  Int          @default(0) @map("streak_count")
+  lastPlayed   DateTime?    @map("last_played")
+  totalPoints  Int          @default(0) @map("total_points")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+
+  stats        UserStats?
+  dailyScores  DailyScore[]
+
+  @@map("users")
+}
+
+model UserStats {
+  id           String @id @default(uuid()) @db.Uuid
+  userId       String @unique @map("user_id") @db.Uuid
+  puzzlesSolved Int   @default(0) @map("puzzles_solved")
+  avgSolveTime  Float @default(0) @map("avg_solve_time")
+
+  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_stats")
+}
+
+model DailyScore {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  date      DateTime @db.Date
+  puzzleId  String   @map("puzzle_id")
+  score     Int
+  timeTaken Int      @map("time_taken")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@map("daily_scores")
+}
