@@ -1,7 +1,7 @@
 {
-  "name": "logic-looper-backend",
+  "name": "mind-maze-backend",
   "version": "1.0.0",
-  "description": "Logic Looper Backend API",
+  "description": "Mind Maze Backend API",
   "main": "server.js",
   "scripts": {
     "dev": "node server.js",
